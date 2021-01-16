@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-import { StyleSheet, Text, View , Button , TextInput, FlatList, Alert} from 'react-native';
+import { StyleSheet, Text, View , Button , TextInput, FlatList, TouchableWithoutFeedback, Keyboard,Alert} from 'react-native';
 import Header from './Components/header'
 import ListItem from './Components/ListItem'
 import AddItem from './Components/addItem'
@@ -34,7 +34,10 @@ export default function App() {
   }
   return (
     
-    <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={()=>{
+      Keyboard.dismiss();
+    }}>
+      <View style={styles.container}>
       <Header />
       <View style = {styles.content}>
         <AddItem submitNew = {AddNewItem}/>
@@ -49,6 +52,7 @@ export default function App() {
 
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 // React Native Button does not support styles external.
