@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React , {useState} from 'react';
 import { StyleSheet, Text, View 
         , FlatList , ScrollView, 
-        RefreshControl, SectionList, TouchableOpacity,
-        TextInput} from 'react-native';
+        RefreshControl, SectionList, TouchableOpacity,Alert,
+        TextInput,
+        ToastAndroid} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
@@ -54,7 +55,18 @@ export default function App() {
   const [submit, setSubmit] = useState(false)
 
   const handlePress = () => {
-    setSubmit(!submit)
+    if (name.length > 3) {
+      setSubmit(!submit);
+    } else {
+      
+      Alert.alert('Warning', 'Name must be longer than 3' , [
+        {text: 'ok'},
+        {text: 'cancel'}
+      ]);
+      
+
+      ToastAndroid.show('Name must be longer than 3' , ToastAndroid.SHORT);
+    }
   } 
 
   return (
