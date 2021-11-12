@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React , {useState} from 'react';
 import { StyleSheet, Text, View 
         , FlatList , ScrollView, 
-        RefreshControl, SectionList, TouchableOpacity,Alert,
+        RefreshControl, SectionList, TouchableOpacity,Alert,Image,
         TextInput,
         ToastAndroid} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -131,9 +131,19 @@ export default function App() {
 
     {
       submit ? 
-      <Text style={styles.item}> Entered name is {name} </Text>
+      <View style={styles.body}>    
+        <Text style={styles.item}> Entered name is {name} </Text>
+        <Image 
+        style = {styles.img}
+        resizeMode = 'stretch'
+        source={ require('./assets/done.png')} />
+      </View>
+
       :
-      null
+      <Image 
+      style = {styles.img}
+      resizeMode = 'stretch'
+      source={ require('./assets/error.png')} />
     }
      </SafeAreaView>
   );
@@ -145,6 +155,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  img:  {
+    height: 200,
+    width: 200,
+    justifyContent: 'center',
+    margin: 10
   },
 
 
