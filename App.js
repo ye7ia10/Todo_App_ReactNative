@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React , {useState} from 'react';
 import { StyleSheet, Text, View 
-        , FlatList , ScrollView, RefreshControl, SectionList} from 'react-native';
+        , FlatList , ScrollView, 
+        RefreshControl, SectionList,
+        TextInput} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
-  const [Items, setItems] = useState([
+  /* const [Items, setItems] = useState([
     { name: 'Item 1' },
     { name: 'Item 2' },
     { name: 'Item 3' },
@@ -44,9 +47,14 @@ export default function App() {
     SetRefreshing(true)
     setItems([... Items, {name : 'Item Yehia'}])
     SetRefreshing(false)
-  }
+  } */
+
+
+  const [name, setName] = useState('')
+
   return (
-    <View style={styles.body}>
+    <SafeAreaView style={styles.body}>
+    
     
    {/*  
         <Text style= {styles.text1} >My Flat List</Text>
@@ -66,7 +74,7 @@ export default function App() {
          />
        }
      /> */}
-
+{/* 
      <Text style={styles.text1} >Section List</Text>
      <SectionList
       keyExtractor={(item, index) => index.toString()}
@@ -80,14 +88,26 @@ export default function App() {
         </View>
       )}
     />
-    
-     </View>
+
+    */}
+
+
+     <Text style={styles.text1}>Enter Your name : </Text>
+     <TextInput 
+        placeholder =  'e.g. John Doe'
+        textAlign = 'center'
+        style = {styles.input}
+        onChangeText = { (val) => { setName(val)}}
+     />
+
+     <Text style={styles.item}> Entered name is {name} </Text>
+     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -97,10 +117,14 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'center',
     backgroundColor: '#ffffff',
   },
   item: {
     margin: 10,
+    padding: 20,
+    fontSize: 20,
+    width: '80%',
     backgroundColor: '#4ae1fa',
     justifyContent: 'center',
     alignItems: 'center',
@@ -109,7 +133,17 @@ const styles = StyleSheet.create({
   text1: {
     textAlign:'center',
     alignContent: 'center',
-    fontSize: 30
+    fontSize: 30,
+    marginTop: 20,
+  }, 
+  input: {
+    width: '80%',
+    borderColor : '#000',
+    borderWidth: 1,
+    margin: 15,
+    padding: 10,
+    fontSize: 20,
+    borderRadius: 10,
   }
   
 });
