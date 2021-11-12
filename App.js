@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React , {useState} from 'react';
 import { StyleSheet, Text, View 
         , FlatList , ScrollView, 
-        RefreshControl, SectionList, TouchableOpacity,
+        RefreshControl, SectionList,
         TextInput} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -51,11 +51,6 @@ export default function App() {
 
 
   const [name, setName] = useState('')
-  const [submit, setSubmit] = useState(false)
-
-  const handlePress = () => {
-    setSubmit(!submit)
-  } 
 
   return (
     <SafeAreaView style={styles.body}>
@@ -97,7 +92,6 @@ export default function App() {
     */}
 
 
-
      <Text style={styles.text1}>Enter Your name : </Text>
      <TextInput 
         placeholder =  'e.g. John Doe'
@@ -106,23 +100,7 @@ export default function App() {
         onChangeText = { (val) => { setName(val)}}
      />
 
-     <TouchableOpacity
-     
-      style = {styles.btn}
-      onPress = {handlePress}
-     
-     >
-
-     <Text style={styles.text2}> {submit ? 'Clear' : 'Register'}</Text>
-
-     </TouchableOpacity>
-
-    {
-      submit ? 
-      <Text style={styles.item}> Entered name is {name} </Text>
-      :
-      null
-    }
+     <Text style={styles.item}> Entered name is {name} </Text>
      </SafeAreaView>
   );
 }
@@ -148,15 +126,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     width: '80%',
     backgroundColor: '#4ae1fa',
-    textAlign: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   text1: {
     textAlign:'center',
     alignContent: 'center',
     fontSize: 30,
-    marginTop: 5,
-    color:'#000'
+    marginTop: 20,
   }, 
   input: {
     width: '80%',
@@ -166,20 +144,6 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
     borderRadius: 10,
-  },
-  btn:{
-    backgroundColor: 'green',
-    width:'60%',
-    padding:10,
-    borderWidth:1,
-    borderRadius:15,
-  },
-
-  text2: {
-    textAlign:'center',
-    alignContent: 'center',
-    fontSize: 30,
-    color: 'white'
-  },
+  }
   
 });
