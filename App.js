@@ -4,7 +4,8 @@ import { StyleSheet, Text, View
         , FlatList , ScrollView, 
         RefreshControl, SectionList, TouchableOpacity,Alert,Image,
         TextInput,
-        ToastAndroid} from 'react-native';
+        ToastAndroid,
+        ImageBackground} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
@@ -70,7 +71,12 @@ export default function App() {
   } 
 
   return (
-    <SafeAreaView style={styles.body}>
+    
+    <ImageBackground
+    source = {require('./assets/back.png')}
+    style={styles.body}>
+
+      
     
     
    {/*  
@@ -145,7 +151,7 @@ export default function App() {
       resizeMode = 'stretch'
       source={ require('./assets/error.png')} />
     }
-     </SafeAreaView>
+     </ImageBackground>
   );
 }
 
@@ -169,15 +175,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    
   },
   item: {
     margin: 10,
     padding: 20,
     fontSize: 20,
     width: '80%',
-    backgroundColor: '#4ae1fa',
-    textAlign: 'center'
+    textAlign: 'center',
+    justifyContent: 'center',
+    color:'#fff'
   },
 
   text1: {
