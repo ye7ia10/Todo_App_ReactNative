@@ -1,122 +1,61 @@
 import { StatusBar } from 'expo-status-bar';
 import React , {useState} from 'react';
-import { StyleSheet, Text, View 
-        , FlatList , ScrollView, 
-        RefreshControl, SectionList, TouchableOpacity,Alert,Image,
-        TextInput,
-        ToastAndroid,
-        ImageBackground} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import CusButton from './CustomButton';
-import Header from './Header';
+import { StyleSheet, Text, View ,Pressable} from 'react-native';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+
+
+const Stack = createStackNavigator()
+
+function ScreenA({navigation}) {
+
+  const onPressBtn = () => {
+    navigation.navigate('Screen B');
+  }
+  return (
+    <View style = {styles.body}>
+      <Text style={styles.text1}>Screen A</Text>
+
+      <Pressable 
+      onPress = {onPressBtn}
+      
+      style={styles.btn}>
+        <Text style={styles.text2}>Go To Next Screen</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+
+function ScreenB () {
+  return(
+    <View style={styles.body}>
+      <Text style={styles.text1}> Screen B</Text>
+    </View>
+  );
+}
 
 export default function App() {
-  /* const [Items, setItems] = useState([
-    { name: 'Item 1' },
-    { name: 'Item 2' },
-    { name: 'Item 3' },
-    { name: 'Item 4' },
-    { name: 'Item 5' },
-    { name: 'Item 6' },
-    { name: 'Item 7' },
-    { name: 'Item 8' },
-    { name: 'Item 9' },
-    { name: 'Item 27' },
-    { name: 'Item 78' },
-  ])
+ 
 
-
-  const DATA = [
-    {
-      title: 'Title 1',
-      data: ['Item 1-1', 'Item 1-2', 'Item 1-3'],
-    },
-    {
-      title: 'Title 2',
-      data: ['Item 2-1', 'Item 2-2', 'Item 2-3'],
-    },
-    {
-      title: 'Title 3',
-      data: ['Item 3-1'],
-    },
-    {
-      title: 'Title 4',
-      data: ['Item 4-1', 'Item 4-2'],
-    },
-  ]
-
-  const [Refreshing , SetRefreshing] = useState(false)
-
-  const onRefresh = () => {
-    SetRefreshing(true)
-    setItems([... Items, {name : 'Item Yehia'}])
-    SetRefreshing(false)
-  } */
-
-
-  const [name, setName] = useState('')
-  const [submit, setSubmit] = useState(false)
-
-  const handlePress = () => {
-    if (name.length > 3) {
-      setSubmit(!submit);
-    } else {
-      
-      Alert.alert('Warning', 'Name must be longer than 3' , [
-        {text: 'ok'},
-        {text: 'cancel'}
-      ]);
-      
-
-      ToastAndroid.show('Name must be longer than 3' , ToastAndroid.SHORT);
-    }
-  } 
 
   return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen 
+          name= "Screen A"
+          component = {ScreenA}
+        />
+
+      <Stack.Screen 
+          name= "Screen B"
+          component = {ScreenB}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
     
-    <ImageBackground
-    source = {require('./assets/back.png')}
-    style={styles.body}>
-
-      
-    
-    <Header />
-
-  
-
-     <Text style={styles.text1}>Enter Your name : </Text>
-     <TextInput 
-        placeholder =  'e.g. John Doe'
-        textAlign = 'center'
-        style = {styles.input}
-        onChangeText = { (val) => { setName(val)}}
-     />
-
-
-     < CusButton 
-        title={submit ? 'Clear' : 'Submit'}
-        handlePress = {handlePress}
-     />
-
-
-
-    {
-      submit ? 
-      <View style={styles.body}>    
-        <Text style={styles.item}> Entered name is {name} </Text>
-        <Image 
-        style = {styles.img}
-        resizeMode = 'stretch'
-        source={ require('./assets/done.png')} />
-      </View>
-
-      :
-      <Image 
-      style = {styles.img}
-      resizeMode = 'stretch'
-      source={ require('./assets/error.png')} />
-    }
-     </ImageBackground>
   );
 }
 
@@ -140,6 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent:'center'
     
   },
   item: {
