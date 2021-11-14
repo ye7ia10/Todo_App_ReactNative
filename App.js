@@ -7,6 +7,8 @@ import { StyleSheet, Text, View
         ToastAndroid,
         ImageBackground} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import CusButton from './CustomButton';
+import Header from './Header';
 
 export default function App() {
   /* const [Items, setItems] = useState([
@@ -78,43 +80,9 @@ export default function App() {
 
       
     
-    
-   {/*  
-        <Text style= {styles.text1} >My Flat List</Text>
-        <FlatList
-         keyExtractor={(item, index) => index.toString()}
-         data={Items}
-         renderItem={({ item }) => (
-         <View style={styles.item}>
-           <Text style={styles.text}>{item.name}</Text>
-         </View>
-       )}
-       refreshControl={
-         <RefreshControl
-         refreshing={Refreshing}
-           onRefresh={onRefresh}
-           colors={['#ff00ff']}
-         />
-       }
-     /> */}
-{/* 
-     <Text style={styles.text1} >Section List</Text>
-     <SectionList
-      keyExtractor={(item, index) => index.toString()}
-      sections={DATA}
-      renderItem={({ item }) => (
-        <Text style={styles.text}>{item}</Text>
-      )}
-      renderSectionHeader={({section})=>(
-        <View style={styles.item}>
-          <Text style={styles.text}>{section.title}</Text>
-        </View>
-      )}
-    />
+    <Header />
 
-    */}
-
-
+  
 
      <Text style={styles.text1}>Enter Your name : </Text>
      <TextInput 
@@ -124,16 +92,13 @@ export default function App() {
         onChangeText = { (val) => { setName(val)}}
      />
 
-     <TouchableOpacity
-     
-      style = {styles.btn}
-      onPress = {handlePress}
-     
-     >
 
-     <Text style={styles.text2}> {submit ? 'Clear' : 'Register'}</Text>
+     < CusButton 
+        title={submit ? 'Clear' : 'Submit'}
+        handlePress = {handlePress}
+     />
 
-     </TouchableOpacity>
+
 
     {
       submit ? 
