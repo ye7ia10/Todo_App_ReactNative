@@ -4,38 +4,20 @@ import { StyleSheet, Text, View ,Pressable} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import ScreenA from './Screens/ScreenA';
+import ScreenB from './Screens/ScreenB';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 
 
-const Stack = createStackNavigator()
 
-function ScreenA({navigation}) {
-
-  const onPressBtn = () => {
-    navigation.navigate('Screen B');
-  }
-  return (
-    <View style = {styles.body}>
-      <Text style={styles.text1}>Screen A</Text>
-
-      <Pressable 
-      onPress = {onPressBtn}
-      
-      style={styles.btn}>
-        <Text style={styles.text2}>Go To Next Screen</Text>
-      </Pressable>
-    </View>
-  );
-}
+const Tab = createBottomTabNavigator();
 
 
-function ScreenB () {
-  return(
-    <View style={styles.body}>
-      <Text style={styles.text1}> Screen B</Text>
-    </View>
-  );
-}
+
+
 
 export default function App() {
  
@@ -43,17 +25,52 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
+      <Tab.Navigator  
+      
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, size, color }) => {
+          let iconName;
+          if (route.name === 'Screen A') {
+            iconName = 'autoprefixer';
+            size = focused ? 25 : 20;
+            
+          } else if (route.name === 'Screen B') {
+            iconName = 'btc';
+            size = focused ? 25 : 20;
+          }
+          return (
+            <FontAwesome5
+              name={iconName}
+              size={size}
+              color={color}
+            />
+          )
+        }
+      })}
+
+
+      tabBarOptions={{
+        activeTintColor: '#f0f',
+        inactiveTintColor: '#555',
+        activeBackgroundColor: '#fff',
+        inactiveBackgroundColor: '#999',
+        showLabel: true,
+        labelStyle: { fontSize: 14 },
+        showIcon: true,
+      }}
+      
+      
+      >
+        <Tab.Screen 
           name= "Screen A"
           component = {ScreenA}
         />
 
-      <Stack.Screen 
+      <Tab.Screen 
           name= "Screen B"
           component = {ScreenB}
         />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
     
   );
