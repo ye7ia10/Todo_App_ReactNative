@@ -9,12 +9,14 @@ import ScreenB from './Screens/ScreenB';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 
 
 
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
 
+const Tab = createMaterialBottomTabNavigator();
 
 
 
@@ -49,7 +51,7 @@ export default function App() {
       })}
 
 
-      tabBarOptions={{
+    /*   tabBarOptions={{
         activeTintColor: '#f0f',
         inactiveTintColor: '#555',
         activeBackgroundColor: '#fff',
@@ -57,8 +59,12 @@ export default function App() {
         showLabel: true,
         labelStyle: { fontSize: 14 },
         showIcon: true,
-      }}
-      
+      }} */
+
+
+      activeColor='#f0edf6'
+      inactiveColor='#3e2465'
+      barStyle={{ backgroundColor: '#694fad' }}
       
       >
         <Tab.Screen 
