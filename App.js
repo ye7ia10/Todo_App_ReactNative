@@ -28,7 +28,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator  
-      
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, size, color }) => {
           let iconName;
@@ -75,6 +74,10 @@ export default function App() {
       <Tab.Screen 
           name= "Screen B"
           component = {ScreenB}
+          initialParams = {{
+            itemName: "Yehia Elsayed From",
+            itemId: '12',
+            }}
         />
       </Tab.Navigator>
     </NavigationContainer>

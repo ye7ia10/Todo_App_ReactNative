@@ -5,7 +5,11 @@ import { StyleSheet, Text, View ,Pressable} from 'react-native';
 export default function ScreenA({navigation}) {
 
     const onPressBtn = () => {
-      navigation.navigate('Screen B');
+      navigation.navigate('Screen B', {
+          itemName: "Yehia Elsayed",
+          itemId: '12',
+      }
+      );
     }
     return (
       <View style = {styles.body}>
