@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ScreenA from './Screens/ScreenA';
 import ScreenB from './Screens/ScreenB';
+import Login from './Screens/Login'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -16,8 +17,10 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 // const Tab = createBottomTabNavigator();
 
-const Tab = createMaterialBottomTabNavigator();
+//const Tab = createMaterialBottomTabNavigator();
 
+
+const Stack = createStackNavigator();
 
 
 
@@ -27,59 +30,35 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator  
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, size, color }) => {
-          let iconName;
-          if (route.name === 'Screen A') {
-            iconName = 'autoprefixer';
-            size = focused ? 25 : 20;
-            
-          } else if (route.name === 'Screen B') {
-            iconName = 'btc';
-            size = focused ? 25 : 20;
+      <Stack.Navigator  
+        initialRouteName = "Login"
+        screenOptions = {{
+          headerTitleAlign : 'center',
+          headerStyle:{
+            backgroundColor: '#0080ff'
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle:{
+            fontSize: 25,
+            fontWeight: 'bold'
           }
-          return (
-            <FontAwesome5
-              name={iconName}
-              size={size}
-              color={color}
-            />
-          )
-        }
-      })}
-
-
-    /*   tabBarOptions={{
-        activeTintColor: '#f0f',
-        inactiveTintColor: '#555',
-        activeBackgroundColor: '#fff',
-        inactiveBackgroundColor: '#999',
-        showLabel: true,
-        labelStyle: { fontSize: 14 },
-        showIcon: true,
-      }} */
-
-
-      activeColor='#f0edf6'
-      inactiveColor='#3e2465'
-      barStyle={{ backgroundColor: '#694fad' }}
-      
+        }}
       >
-        <Tab.Screen 
+        <Stack.Screen 
           name= "Screen A"
           component = {ScreenA}
         />
 
-      <Tab.Screen 
-          name= "Screen B"
-          component = {ScreenB}
-          initialParams = {{
-            itemName: "Yehia Elsayed From",
-            itemId: '12',
-            }}
+        <Stack.Screen
+          name = "Login"
+          component = {Login}
+          options={
+            {
+              headerShown: false,
+            }
+          }
         />
-      </Tab.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
     
   );

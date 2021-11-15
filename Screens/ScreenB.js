@@ -1,6 +1,6 @@
 import React , {useState} from 'react';
 import { StyleSheet, Text, View ,Pressable} from 'react-native';
-
+import GlobalStyle from '../utils/GlobalStyle';
 
 
 export default function ScreenB ({route}) {
@@ -11,7 +11,11 @@ export default function ScreenB ({route}) {
       <View style={styles.body}>
         <Text style={styles.text1}> Screen B</Text>
         <Text style={styles.text1}> {itemName}</Text>
-        <Text style={styles.text1}> {itemId} </Text>
+        <Text style={
+            [
+            GlobalStyle.customFont,
+            styles.text1
+            ]}> {itemId} </Text>
       </View>
     );
 }

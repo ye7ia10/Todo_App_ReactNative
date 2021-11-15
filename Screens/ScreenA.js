@@ -1,26 +1,57 @@
-import React , {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React , {useState, useEffect} from 'react';
 import { StyleSheet, Text, View ,Pressable} from 'react-native';
+import CusButton from '../utils/CustomButton';
 
 
 export default function ScreenA({navigation}) {
 
-    const onPressBtn = () => {
-      navigation.navigate('Screen B', {
-          itemName: "Yehia Elsayed",
-          itemId: '12',
-      }
-      );
+   
+    const [name, setName] = useState('')
+    const [age, setAge] = useState('')
+
+
+    useEffect(() => {
+       getData()  //if the second parameter if empty array function executed only once when open the page.
+    }, [])
+    const getData = () => {  //get data stored loclally
+        try {
+             AsyncStorage.getItem('userData').then(
+                value => {
+                    if (value != null){
+                        
+                        let user = JSON.parse(value)
+                        setName(user.Name);
+                        setAge(user.Age);
+                    }
+                }
+            )
+        } catch (error) {
+            console.log(error)
+        }
     }
+
+
+    const deleteItem = async () => {
+        try {
+            //await AsyncStorage.removeItem('userName');
+            await AsyncStorage.clear(); //clear all
+            navigation.navigate('Login')
+        } catch (error) {
+            
+        }
+    }
+
     return (
       <View style = {styles.body}>
-        <Text style={styles.text1}>Screen A</Text>
-  
-        <Pressable 
-        onPress = {onPressBtn}
+        <Text style={styles.text2}> welcome {name} ! </Text>
+        <Text style={styles.text2}> Your Age Is  {age} ! </Text>
+
+        <CusButton 
         
-        style={styles.btn}>
-          <Text style={styles.text2}>Go To Next Screen</Text>
-        </Pressable>
+        title = "Log out"
+        handlePress = {deleteItem}
+        />
       </View>
     );
   }
@@ -55,6 +86,7 @@ export default function ScreenA({navigation}) {
         textAlign:'center',
         alignContent: 'center',
         fontSize: 30,
-        color: 'white'
+        color: 'black',
+        margin: 50
       },
   })

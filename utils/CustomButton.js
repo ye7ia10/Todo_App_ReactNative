@@ -1,18 +1,18 @@
 import React from "react";
 
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, Pressable } from "react-native";
 
 
 const CusButton = (props) => {
     return (
-        <TouchableOpacity
+        <Pressable
             style={styles.btn}
             onPress={props.handlePress}
         >
 
             <Text style={styles.text2}> {props.title}</Text>
 
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
         textAlign:'center',
         alignContent: 'center',
         fontSize: 30,
-        color: 'white'
+        color: 'white',
+        fontWeight:'bold'
       },
 })
 
