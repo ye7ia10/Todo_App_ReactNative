@@ -4,11 +4,26 @@ import { StyleSheet, Text, View ,Pressable} from 'react-native';
 import CusButton from '../utils/CustomButton';
 
 
+/** import useSelector and UseDispatch
+ * UseSelector to select the states needed here from its reducer
+ * UseDispatch to call the actions
+ */
+
+ import { useSelector, useDispatch } from "react-redux";
+ //import the actions impelented
+ import { setName , setAge, increaseAge } from "../redux/actions";
+
+
+
 export default function ScreenA({navigation}) {
 
    
-    const [name, setName] = useState('')
+    /* const [name, setName] = useState('')
     const [age, setAge] = useState('')
+    */
+
+    const{name, age} = useSelector(state => state.userReducer);
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
@@ -21,8 +36,8 @@ export default function ScreenA({navigation}) {
                     if (value != null){
                         
                         let user = JSON.parse(value)
-                        setName(user.Name);
-                        setAge(user.Age);
+                        dispatch(setName(user.Name));
+                        dispatch(setAge(user.Age));
                     }
                 }
             )
@@ -42,6 +57,8 @@ export default function ScreenA({navigation}) {
         }
     }
 
+    
+
     return (
       <View style = {styles.body}>
         <Text style={styles.text2}> welcome {name} ! </Text>
@@ -51,6 +68,11 @@ export default function ScreenA({navigation}) {
         
         title = "Log out"
         handlePress = {deleteItem}
+        />
+
+    <CusButton 
+        title = "Increase Age"
+        handlePress = {() => dispatch(increaseAge())}
         />
       </View>
     );

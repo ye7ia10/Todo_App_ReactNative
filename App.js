@@ -12,7 +12,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-
+/** import Provide and Store */
+import { Provider } from 'react-redux';
+import { Store } from './redux/store';
 
 
 // const Tab = createBottomTabNavigator();
@@ -29,38 +31,39 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator  
-        initialRouteName = "Login"
-        screenOptions = {{
-          headerTitleAlign : 'center',
-          headerStyle:{
-            backgroundColor: '#0080ff'
-          },
-          headerTintColor: '#ffffff',
-          headerTitleStyle:{
-            fontSize: 25,
-            fontWeight: 'bold'
-          }
-        }}
-      >
-        <Stack.Screen 
-          name= "Screen A"
-          component = {ScreenA}
-        />
-
-        <Stack.Screen
-          name = "Login"
-          component = {Login}
-          options={
-            {
-              headerShown: false,
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Stack.Navigator  
+          initialRouteName = "Login"
+          screenOptions = {{
+            headerTitleAlign : 'center',
+            headerStyle:{
+              backgroundColor: '#0080ff'
+            },
+            headerTintColor: '#ffffff',
+            headerTitleStyle:{
+              fontSize: 25,
+              fontWeight: 'bold'
             }
-          }
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-    
+          }}
+        >
+          <Stack.Screen 
+            name= "Screen A"
+            component = {ScreenA}
+          />
+
+          <Stack.Screen
+            name = "Login"
+            component = {Login}
+            options={
+              {
+                headerShown: false,
+              }
+            }
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

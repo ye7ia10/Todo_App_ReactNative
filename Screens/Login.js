@@ -5,12 +5,30 @@ import { TextInput } from "react-native-gesture-handler";
 import CusButton from "../utils/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+/** import useSelector and UseDispatch
+ * UseSelector to select the states needed here from its reducer
+ * UseDispatch to call the actions
+ */
+
+import { useSelector, useDispatch } from "react-redux";
+//import the actions impelented
+import { setName , setAge } from "../redux/actions";
+
+
+
+
+
 export default function Login({navigation}){
-    const [name, setName] = useState('')
 
 
+    const{name, age} = useSelector(state => state.userReducer);
+    const dispatch = useDispatch();
+
+
+
+   /*  const [name, setName] = useState('')
     const [age, setAge] = useState('')
-    
+     */
 
     /** check if user already logged in before */
 
@@ -38,6 +56,10 @@ export default function Login({navigation}){
             Alert.alert('warning', 'Enter Your Name')
         } else {
             try {
+                //Redux 
+                dispatch(setName(name))
+                dispatch(setAge(age))
+
                 /** for objects */
                 var user = {
                     Name : name,
@@ -56,8 +78,7 @@ export default function Login({navigation}){
     return(
         <View style={styles.body}>
             
-
-            <Image 
+                       <Image 
             style = {styles.img}
             source= {require('../assets/logo.png')}
             resizeMode='stretch'
@@ -67,12 +88,12 @@ export default function Login({navigation}){
             <View style={styles.view2}>
             <TextInput
                 placeholder = "Enter Your Name"
-                onChangeText = {(value) => {setName(value)}}
+                onChangeText = {(value) => {dispatch(setName(value))}}
                 style={styles.inp}
             />
             <TextInput
                 placeholder = "Enter Your Age"
-                onChangeText = {(value) => {setAge(value)}}
+                onChangeText = {(value) => {dispatch(setAge(parseInt(value)))}}
                 style={styles.inp}
             />
             <CusButton 
