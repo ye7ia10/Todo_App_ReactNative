@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React , {useState, useEffect} from 'react';
-import { StyleSheet, Text, View ,Pressable} from 'react-native';
+import { StyleSheet, Text, View ,Pressable, FlatList} from 'react-native';
 import CusButton from '../utils/CustomButton';
 
 
@@ -11,7 +11,7 @@ import CusButton from '../utils/CustomButton';
 
  import { useSelector, useDispatch } from "react-redux";
  //import the actions impelented
- import { setName , setAge, increaseAge } from "../redux/actions";
+ import { setName , setAge, increaseAge, getCities } from "../redux/actions";
 
 
 
@@ -22,12 +22,13 @@ export default function ScreenA({navigation}) {
     const [age, setAge] = useState('')
     */
 
-    const{name, age} = useSelector(state => state.userReducer);
+    const{name, age, cities} = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
 
 
     useEffect(() => {
-       getData()  //if the second parameter if empty array function executed only once when open the page.
+       getData();  //if the second parameter if empty array function executed only once when open the page.
+       dispatch(getCities());
     }, [])
     const getData = () => {  //get data stored loclally
         try {
@@ -62,7 +63,7 @@ export default function ScreenA({navigation}) {
     return (
       <View style = {styles.body}>
         <Text style={styles.text2}> welcome {name} ! </Text>
-        <Text style={styles.text2}> Your Age Is  {age} ! </Text>
+        {/* <Text style={styles.text2}> Your Age Is  {age} ! </Text>
 
         <CusButton 
         
@@ -70,10 +71,23 @@ export default function ScreenA({navigation}) {
         handlePress = {deleteItem}
         />
 
-    <CusButton 
-        title = "Increase Age"
-        handlePress = {() => dispatch(increaseAge())}
-        />
+        <CusButton 
+            title = "Increase Age"
+            handlePress = {() => dispatch(increaseAge())}
+            /> */}
+
+            <Text style={styles.text2}>Cities from API : </Text>
+            <FlatList 
+                data={cities}
+                renderItem= {({item}) => (
+                    <View style = {styles.item}>
+                        <Text style={styles.title}>{item.country}</Text>
+                        <Text style={styles.subtitle}>{item.city}</Text>
+                    </View>
+                )}
+                keyExtractor = {(item, index) => index.toString()}
+
+            />
       </View>
     );
   }
@@ -111,4 +125,23 @@ export default function ScreenA({navigation}) {
         color: 'black',
         margin: 50
       },
+      item:{
+          backgroundColor: '#ffffff',
+          width: 300,
+          borderWidth: 1,
+          borderColor: '#000',
+          margin: 15,
+          padding: 15,
+          alignItems: 'center',
+          justifyContent: 'center',
+      },
+      title:{
+          fontSize: 30,
+          margin:10,
+          fontWeight:'bold'
+      },
+      subtitle:{
+            fontSize: 20,
+            color: '#999999'
+      }
   })
