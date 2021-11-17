@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React , {useEffect} from 'react'
-import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Pressable, TouchableOpacity, FlatList } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useSelector, useDispatch } from "react-redux";
 //import the actions impelented
@@ -29,19 +29,41 @@ export default function ToDo({navigation}) {
 
     return (
         <View style={styles.body}>
-            <TouchableOpacity 
+            
+
+
+            <FlatList 
+                data={tasks}
+                renderItem = {({item}) => {
+                    return (
+                        <TouchableOpacity 
+                            onPress = {() => {
+                                dispatch(setTaskId(item.id))
+                                navigation.navigate('Task')
+                            }}
+                            style={styles.item}>
+                            <Text style = {styles.title}>{item.title}</Text>
+                            <Text style = {styles.subtitle}>{item.desc}</Text>
+                        </TouchableOpacity>
+                    )
+                }}
+            />
+
+
+        <TouchableOpacity 
             
             onPress = {()=>{
                 dispatch(setTaskId(tasks.length + 1))
                 navigation.navigate('Task')}
             }
             style={styles.touch}>
-                <FontAwesome5
+         <FontAwesome5
                 name={'plus'}
                 size={20}
                 color={'#fff'}
                 />
             </TouchableOpacity>
+
         </View>
     )
 }
@@ -52,8 +74,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff'
     },
     touch:{
-        width:60,
-        height: 60,
+        width:70,
+        height: 70,
         backgroundColor: '#0080ff',
         borderRadius: 30,
         position: 'absolute',
@@ -62,5 +84,24 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center'
 
+    },
+    item:{
+        backgroundColor: '#ffffff',
+        borderWidth: 1,
+        borderColor: '#000',
+        margin: 15,
+        borderRadius: 20,
+        elevation: 8,
+        padding: 15,
+    },
+    title:{
+        fontSize: 30,
+        marginBottom: 10,
+        fontWeight:'bold',
+        textAlign: 'center'
+    },
+    subtitle:{
+          fontSize: 20,
+          color: '#999999'
     }
 })
