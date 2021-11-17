@@ -19,8 +19,8 @@ const CusButton = (props) => {
 const styles = StyleSheet.create({
 
     btn:{
-        backgroundColor: 'green',
-        width:'60%',
+        backgroundColor: '#1eb900',
+        
         padding:10,
         borderWidth:1,
         borderRadius:15,

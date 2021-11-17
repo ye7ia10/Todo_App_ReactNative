@@ -4,9 +4,6 @@ import { StyleSheet, Text, View ,Pressable} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ScreenA from './Screens/ScreenA';
-import ScreenB from './Screens/ScreenB';
-import Login from './Screens/Login'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -15,12 +12,51 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 /** import Provide and Store */
 import { Provider } from 'react-redux';
 import { Store } from './redux/store';
-
-
-// const Tab = createBottomTabNavigator();
+import Splash from './Screens/Splash';
+import ToDo from './Screens/ToDo';
+import Done from './Screens/Done';
+import Task from './Screens/Task';
 
 //const Tab = createMaterialBottomTabNavigator();
 
+const Tab = createBottomTabNavigator();
+
+function HomeTabs (){
+  return(
+    <Tab.Navigator
+      screenOptions = {({route}) =>({
+        tabBarIcon: ({ focused, size, color }) => {
+          let iconName;
+          if (route.name === 'ToDo') {
+            iconName = 'clipboard-list';
+            size = focused ? 25 : 20;
+
+          } else if (route.name === 'Done') {
+            iconName = 'clipboard-check';
+            size = focused ? 25 : 20;
+          }
+          return (
+            <FontAwesome5
+              name={iconName}
+              size={size}
+              color={color}
+            />
+          )
+        }
+      })}
+
+      tabBarOptions={{
+        activeTintColor: '#0080ff',
+        inactiveTintColor: '#777777',
+        labelStyle: { fontSize: 15, fontWeight:'bold' },
+      }}
+    >
+      <Tab.Screen name='ToDo' component={ToDo}/>
+      <Tab.Screen name='Done' component={Done}/>
+
+    </Tab.Navigator>
+  )
+}
 
 const Stack = createStackNavigator();
 
@@ -34,7 +70,7 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator  
-          initialRouteName = "Login"
+          initialRouteName = "Splash"
           screenOptions = {{
             headerTitleAlign : 'center',
             headerStyle:{
@@ -47,20 +83,24 @@ export default function App() {
             }
           }}
         >
+        
+
           <Stack.Screen 
-            name= "Screen A"
-            component = {ScreenA}
+            name= "Splash"
+            component= {Splash}
           />
 
-          <Stack.Screen
-            name = "Login"
-            component = {Login}
-            options={
-              {
-                headerShown: false,
-              }
-            }
+          <Stack.Screen 
+            name = "Home"
+            component = {HomeTabs}
           />
+
+          <Stack.Screen 
+            name = "Task"
+            component = {Task}
+          />
+
+         
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
