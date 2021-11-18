@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React , {useEffect} from 'react'
-import { View, Text, StyleSheet, Pressable, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, StyleSheet, Pressable, TouchableOpacity, FlatList, Alert } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useSelector, useDispatch } from "react-redux";
 //import the actions impelented
@@ -27,11 +27,17 @@ export default function ToDo({navigation}) {
     }, [])
 
 
+    const deleteTask = (id) => {
+        const FilteredTasks = tasks.filter(task => task.id !== id)
+        AsyncStorage.setItem('Tasks', JSON.stringify(FilteredTasks)).then(
+            () => {
+                dispatch(setTasks(FilteredTasks));
+                Alert.alert('Success', 'Task Removed Successfully')
+            }
+        ).catch(err => {console.log(err)})
+    }
     return (
         <View style={styles.body}>
-            
-
-
             <FlatList 
                 data={tasks}
                 renderItem = {({item}) => {
@@ -41,12 +47,24 @@ export default function ToDo({navigation}) {
                                 dispatch(setTaskId(item.id))
                                 navigation.navigate('Task')
                             }}
-                            style={styles.item}>
-                            <Text style = {styles.title}>{item.title}</Text>
-                            <Text style = {styles.subtitle}>{item.desc}</Text>
+                            style={styles.item}
+                            >
+                            <View style={styles.item_row}>
+                                <View style={styles.item_body}>
+                                <Text style = {styles.title}>{item.title}</Text>
+                                <Text style = {styles.subtitle}>{item.desc}</Text>
+                                </View>
+                                <TouchableOpacity
+                                    style={styles.delete}
+                                    onPress = { () => {deleteTask(item.id)}}
+                                >
+                                <FontAwesome5 name={'trash'} size={25} color={'red'} />
+                                </TouchableOpacity>
+                            </View>
                         </TouchableOpacity>
                     )
                 }}
+                keyExtractor = {(item, index) => index.toString()}
             />
 
 
@@ -103,5 +121,18 @@ const styles = StyleSheet.create({
     subtitle:{
           fontSize: 20,
           color: '#999999'
-    }
+    },
+    item_row:{
+        flexDirection: 'row',
+        alignItems:'center'
+    },
+    item_body:{
+        flex:1
+    },
+    delete:{
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
 })
