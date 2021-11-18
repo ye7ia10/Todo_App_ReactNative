@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "react-native-async-storage/async-storage",
+    "@react-native-community/checkbox": "^0.5.9",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "5.x",
     "@react-navigation/material-bottom-tabs": "5.x",

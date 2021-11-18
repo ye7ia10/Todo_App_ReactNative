@@ -24,6 +24,8 @@ target 'todolist' do
 
   pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
 
+  pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
+
   post_install do |installer|
     react_native_post_install(installer)
 

@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 //import the actions impelented
 import { setTasks, setTaskId } from "../redux/actions";
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import CheckBox from '@react-native-community/checkbox'
 
 export default function Task({navigation}) {
 
@@ -16,6 +17,7 @@ export default function Task({navigation}) {
     
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
+    const [done, setDone] = useState(false)
 
 
     const getTask = () => {
@@ -78,6 +80,10 @@ export default function Task({navigation}) {
             style = {[GlobalStyle.inp, styles.margin]}
             />
 
+            <View style={styles.ckbox}>
+                <CheckBox  value={done}/>
+                <Text style={styles.text}>Is done</Text>
+            </View>
             <CusButton 
                 handlePress = {onPressHandler}
                 title= "Save Task"
@@ -96,5 +102,13 @@ const styles = StyleSheet.create({
     },
     margin: {
         margin:10
+    },
+    text:{
+        fontSize: 20,
+        color: '#000'
+    },
+    ckbox:{
+        flexDirection: 'row',
+        margin: 10,
     }
 })
